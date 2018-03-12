@@ -20,4 +20,9 @@ public class ChapterController {
     public Flux<Chapter> getChapters() {
         return chapterRepository.findAll();
     }
+
+    @GetMapping("/flux")
+    public Flux<String> getFlux(){
+        return Flux.just("alpha", "charlie", "bravo");
+    }
 }
