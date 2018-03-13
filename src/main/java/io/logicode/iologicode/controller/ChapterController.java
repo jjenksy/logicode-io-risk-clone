@@ -4,8 +4,10 @@ package io.logicode.iologicode.controller;
 import io.logicode.iologicode.dao.ChapterRepository;
 import io.logicode.iologicode.dao.entity.Chapter;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RestController
 public class ChapterController {
@@ -21,8 +23,8 @@ public class ChapterController {
         return chapterRepository.findAll();
     }
 
-    @GetMapping("/flux")
-    public Flux<String> getFlux(){
-        return Flux.just("alpha", "charlie", "bravo");
+    @GetMapping("/chapter/{id}")
+    public Mono<Chapter> getFlux(@PathVariable("id") String id){
+        return chapterRepository.findById(id);
     }
 }
