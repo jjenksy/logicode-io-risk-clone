@@ -3,13 +3,3 @@
 info:
   app:
     name: logicode
-management:
-  endpoints:
-    web:
-      exposure:
-        include: *
-spring:
-  security:
-    user:
-      name: ${NAME}
-      password: ${PASSWORD}

@@ -1,42 +1,39 @@
 package io.logicode.iologicode.controller;
 
 
+import com.google.common.collect.Lists;
 import io.logicode.iologicode.dao.ChapterRepository;
 import io.logicode.iologicode.dao.entity.Chapter;
-import io.logicode.iologicode.dao.entity.Image;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@RestController
-@RequestMapping(PixelWarController.API_BASE_PATH)
+import java.util.List;
+
+@Controller
 @Slf4j
 public class PixelWarController {
 
-    public static final String API_BASE_PATH = "/pixel_war";
     private final ChapterRepository chapterRepository;
 
     public PixelWarController(ChapterRepository chapterRepository) {
         this.chapterRepository = chapterRepository;
     }
 
-    @GetMapping("/chapters")
-    public Flux<Chapter> getChapters() {
-        return chapterRepository.findAll();
+    @RequestMapping({"/",""})
+    public String getChapters(Model model) {
+        List<Chapter> chapters = Lists.newArrayList(chapterRepository.findAll());
+//        model.addAllAttributes(chapters);
+        //todo clean this up a bit
+        model.addAttribute("chapter", "Hello mate");
+        return "main";
     }
+//
+//    @GetMapping("/chapter/{id}")
+//    public Optional<Chapter> getFlux(@PathVariable("id") String id){
+//        return chapterRepository.findById(id);
+//    }
 
-    @GetMapping("/chapter/{id}")
-    public Mono<Chapter> getFlux(@PathVariable("id") String id){
-        return chapterRepository.findById(id);
-    }
-
-    @PostMapping("/images")
-    Mono<Void> create(@RequestBody Flux<Image> images){
-            return images.map(image -> {
-                log.info("We will save {} soon", image);
-                return image;
-            }).then();
-    }
 
 }
