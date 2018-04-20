@@ -1,18 +1,28 @@
 package io.logicode.iologicode.dao.entity;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
-@Document
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 @Builder(toBuilder = true)
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class Chapter {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Integer id;
     private String name;
 
 }
